@@ -37,3 +37,11 @@ main {
 header h1 {
   text-align: center;
 }
+a {
+    text-decoration: none;
+    color: green;
+}
+.active {
+    background: rgba(255, 255, 0, 50%);
+    color: green;
+}
