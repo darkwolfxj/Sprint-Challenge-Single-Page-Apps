@@ -29,6 +29,8 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 > Answer:
 
+  Client-side routing is faster. Client-side routing allows for "single page" applications.
+  
 ## Project Set Up
 
 Follow these steps to set up and work on your project:
