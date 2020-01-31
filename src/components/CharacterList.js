@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
 
 import SearchForm from './SearchForm';
 import CharacterCard from './CharacterCard';
