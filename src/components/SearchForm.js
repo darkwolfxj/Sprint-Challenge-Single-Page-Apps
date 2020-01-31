@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import styled from 'styled-components';
 
-export default function SearchForm() {
- 
+const Input = styled.input`
+    color: pink;
+`
+
+export default function SearchForm(props) {
+    const handleChanges = e => props.setQuery(e.target.value)
   return (
     <section className="search-form">
-     // Add a search form here
+     <Input type='text' onChange={handleChanges} placeholder={props.placeholder} />
     </section>
   );
 }
