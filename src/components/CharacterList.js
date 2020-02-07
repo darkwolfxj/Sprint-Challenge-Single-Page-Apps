@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
 
 import SearchForm from './SearchForm';
 import CharacterCard from './CharacterCard';
@@ -28,6 +27,7 @@ export default function CharacterList() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
+    const [load, setLoad] = useState(false);
     let placeholder = 'Seach by Character';
   useEffect(() => {
     axios
@@ -35,20 +35,28 @@ export default function CharacterList() {
         .then(response => setData(response.data.results.filter(
             char => char.name
                 .toLowerCase()
-                .includes(query.toLowerCase())
+                .includes(query.toLowerCase()),
+                setTimeout(()=>setLoad(true), 1000)
         )))
         .catch(error => console.log(error))
     // TODO: Add API Request here - must run in `useEffect`
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-  }, [page, query]);
+  }, [page, query, load]);
 
   return (
+    
     <Section className="character-list">
-       <H3>Make sure to hit next page during your search!</H3>
-        <SearchForm setQuery={setQuery} placeholder={placeholder}/>
-        <div><Button onClick={e => (page !== 20)?setPage(page + 1):setPage(1)}>Next Page</Button></div>
-        {data.map(char => <CharacterCard key={char.id} character={char} />)}
-        <div><Button onClick={e => (page !== 4)?setPage(page + 1):setPage(1)}>Next Page</Button></div>
+        {
+        (load===false)?
+        <div><img src='https://media.giphy.com/media/gJ2TzwqdRoKoZ0KWhW/giphy.gif'/></div>:
+        <>
+            <H3>Make sure to hit next page during your search!</H3>
+            <SearchForm setQuery={setQuery} placeholder={placeholder}/>
+            <Button onClick={e => (setLoad(false), setTimeout(()=>(page !== 4)?setPage(page + 1):setPage(1), 1000))}>Next Page</Button>
+            {data.map(char => <CharacterCard key={char.id} character={char} />)}
+            <Button onClick={e => (setLoad(false), setTimeout(()=>(page !== 4)?setPage(page + 1):setPage(1), 1000))}>Next Page</Button>
+        </>
+        }
     </Section>
   );
 }

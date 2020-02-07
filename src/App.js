@@ -8,6 +8,7 @@ import WelcomePage from './components/WelcomePage';
 import CharacterList from './components/CharacterList';
 import LocationsList from './components/LocationsList';
 import Character from './components/Character';
+import Location from './components/Location';
 
 const Div = styled.div`
     display: flex;
@@ -20,6 +21,7 @@ export default function App() {
     <main>
       <Header />
       <Switch>
+            <Route path='/locations/:id' render={props => <Location {...props} />} />
             <Route path='/locations'>
                 <Div><LocationsList /></Div>
             </Route>

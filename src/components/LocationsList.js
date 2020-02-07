@@ -39,14 +39,26 @@ export default function LocationsList() {
                         .includes(query.toLowerCase()), setTimeout(() => setLoad(true), 1000)
             ))})
             .then(error => console.log('There was an error with location fetching', error))
-    }, [page, query])
+    }, [page, query, load])
     return ( 
         <Div>
-            <H3>Make sure to hit next page during your search!</H3>
-            <div><SearchForm setQuery={setQuery} placeholder={placeholder}/></div>
-            <div><Button onClick={e => (setLoad(false), setTimeout(()=>(page !== 4)?setPage(page + 1):setPage(1), 3000))}>Next Page</Button></div>
-            {locations.map(place => <LocationCard place={place} key={place.id}/>)}
-            <div><Button onClick={e => (setLoad(false), setTimeout(()=>(page !== 4)?setPage(page + 1):setPage(1), 3000))}>Next Page</Button></div>
+            {(load===false)?
+            <div><img src='https://media.giphy.com/media/gJ2TzwqdRoKoZ0KWhW/giphy.gif'/></div>:
+                <>
+                    <H3>Make sure to hit next page during your search!</H3>
+                    <div>
+                        <SearchForm setQuery={setQuery} placeholder={placeholder}/>
+                    </div>
+                    <div>
+                        <Button onClick={e => (setLoad(false), setTimeout(()=>(page !== 4)?setPage(page + 1):setPage(1), 1000))}>Next Page</Button>
+                    </div>
+                    {locations.map(place => <LocationCard place={place} key={place.id}/>)}
+                    <div>
+                        <Button onClick={e => (setLoad(false), setTimeout(()=>(page !== 4)?setPage(page + 1):setPage(1), 1000))}>Next Page</Button>
+                    </div>
+                </>
+            }
+            
         </Div>
                 
     )
